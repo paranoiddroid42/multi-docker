@@ -26,7 +26,7 @@ deploy:
   region: eu-west-2
   app: multi-docker
   env: MultiDocker-env
-  bucket: elasticbeanstalk-eu-west-2-233952552020
+  bucket_name: elasticbeanstalk-eu-west-2-233952552020
   bucket_path: docker-multi
   on:
     branch: master
