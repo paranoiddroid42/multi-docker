@@ -1,0 +1,24 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t vhshed/react-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev ./client
+
+script:
+  - docker run vhshed/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t vhshed/multi-client ./client
+  - docker build -t vhshed/multi-nginx ./nginx
+  - docker build -t vhshed/multi-server ./server
+  - docker build -t vhshed/multi-worker ./worker
+  # Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take the images and push to docker hub
+  - docker push vhshed/multi-client
+  - docker push vhshed/multi-nginx
+  - docker push vhshed/multi-server
+  - docker push vhshed/multi-worker
+
+
