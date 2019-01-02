@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t vhshed/react-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev ./client
+  - docker build -t vhshed/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run vhshed/react-test npm test -- --coverage
